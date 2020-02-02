@@ -88,7 +88,7 @@ else
 #print $DATA_OUT "| $SORT\n";
 #print $DATA_OUT "| {{#ifexist: $TITLE | [[$TITLE]] | $TITLE }} \n";  #Too intensive for Mediawiki
 
-  print $DATA_OUT "|$SHADE|$COUNTER\n";
+  print $DATA_OUT "|$SHADE|$SORT\n";
 
 if ($DONE =~ "N")
   {
@@ -108,7 +108,9 @@ print $DATA_OUT "|$SHADE|$AUTHOR\n";
 
 if ($FANFIC=~ "^http(.*)")
   {
-      print $DATA_OUT "|$SHADE|[$FANFIC FF]\n";
+    print $DATA_OUT "|$SHADE|[[File:Logo FanFiction.jpg|25px|link=$FANFIC]]\n";
+      #print $DATA_OUT "|$SHADE|[$FANFIC FF]\n";
+      #Logo FanFiction.jpg
   }
 else
   {
@@ -117,7 +119,9 @@ else
 
 if ($AO3=~ "^http(.*)")
   {
-      print $DATA_OUT "|$SHADE|[$AO3 Ao3 ]\n";
+    #[[Image:Wiki.png|50px|link=MediaWiki]]
+      #print $DATA_OUT "|$SHADE|[$AO3 Ao3 ]\n";
+      print $DATA_OUT "|$SHADE|[[File:Logo Ao3.jpg|25px|link=$AO3]]\n";
   }
 else
   {
@@ -126,7 +130,9 @@ else
 
 if ($OTHER=~ "^http(.*)")
   {
-      print $DATA_OUT "|$SHADE|[$OTHER Site]\n";
+    #Logo Site.jpg
+    print $DATA_OUT "|$SHADE|[[File:Logo Site.jpg|25px|link=$OTHER]]\n";
+      #print $DATA_OUT "|$SHADE|[$OTHER Site]\n";
   }
 else
   {
@@ -200,7 +206,7 @@ sub BOX_OUTPUT
   sub SETUP
     {
       print $DATA_OUT "See Also [[:Category:Fanfic]]\n\n";
-      print $DATA_OUT "'''''Note:''' This page is under construction and there are parts missing from the list (apologies to AKK)!.''\n\n";
+      print $DATA_OUT "'''''Note:''' This page is under construction and there are parts missing from the list.''\n\n";
       print $DATA_OUT "{| class=\"wikitable sortable\" style=\"margin: 1ex auto 1ex auto\"\n";
       print $DATA_OUT "! Sort\n";
       print $DATA_OUT "! Title\n";
