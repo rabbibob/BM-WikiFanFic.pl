@@ -3,6 +3,11 @@ use strict;
 use warnings;
 use Data::Dumper;
 use Text::CSV;
+use feature 'unicode_strings';
+use utf8;
+use open ':encoding(utf8)';
+binmode(STDOUT, ":utf8");
+use open IN => ":encoding(utf8)", OUT => ":utf8";
 
 my $filename='temp.txt';
 my $NAME_CHECK="";
@@ -17,7 +22,7 @@ my $CSV = Text::CSV->new ({
                                             );
 
 open(my $DATA_IN, '<:encoding(utf8)', $INPUT_FILE) or die "Could not open '$INPUT_FILE' $!\n";
-open (my $DATA_OUT, '>:encoding(utf8)', "output.txt") or die "Could not open: $!\n";
+open(my $DATA_OUT, '>:encoding(utf8)', "output.txt") or die "Could not open: $!\n";
 
 SETUP ();  #create page setup
 
@@ -35,6 +40,11 @@ while (my $fields = $CSV->getline( $DATA_IN ))
   my $AO3;
   my $OTHER;
   my $RATING;
+  my $TIMELINE;
+  my $AUTHOR_ORDER;
+  my $SERIES;
+  my $SERIES_ORDER;
+  my $MASTER_ORDER;
   my $LANGUAGE;
   my $STYLE;
   my $CHAPTERS;
@@ -49,6 +59,7 @@ while (my $fields = $CSV->getline( $DATA_IN ))
       $skip_1 = $fields->[0];
       $SORT = $fields->[1];
       $TITLE = $fields->[2];
+       # if($TITLE=~m/(Raumj).*/){$TITLE="Raumjager"}
       $AUTHOR = $fields->[3];
       $PERMISSION = $fields->[4];
       $DONE = $fields->[5];
@@ -57,14 +68,19 @@ while (my $fields = $CSV->getline( $DATA_IN ))
       $AO3 = $fields->[9];
       $OTHER = $fields->[11];
       $RATING = $fields->[13];
-      $LANGUAGE = $fields->[14];
-      $STYLE = $fields->[15];
-      $CHAPTERS = $fields->[16];
-      $LENGTH = $fields->[17];
-      $PUBLISHED = $fields->[18];
-      $UPDATED = $fields->[19];
-      $DESC = $fields->[20];
-      $NOTES = $fields->[21];
+      $TIMELINE = $fields->[14];
+      $AUTHOR_ORDER = $fields->[15];
+      $SERIES = $fields->[16];
+      $SERIES_ORDER = $fields->[17];
+      $MASTER_ORDER = $fields->[18];
+      $LANGUAGE = $fields->[19];
+      $STYLE = $fields->[20];
+      $CHAPTERS = $fields->[21];
+      $LENGTH = $fields->[22];
+      $PUBLISHED = $fields->[23];
+      $UPDATED = $fields->[24];
+      $DESC = $fields->[25];
+      $NOTES = $fields->[26];
 
 #############
 
