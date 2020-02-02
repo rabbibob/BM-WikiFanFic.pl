@@ -1,6 +1,8 @@
 #!/usr/bin/perl
+# Version 5
 use strict;
 use warnings;
+no warnings 'uninitialized';
 use Data::Dumper;
 use Text::CSV;
 use feature 'unicode_strings';
@@ -32,6 +34,7 @@ while (my $fields = $CSV->getline( $DATA_IN ))
   my $skip_1;
   my $SORT;
   my $TITLE;
+  my $TITLE_FILE;
   my $AUTHOR;
   my $PERMISSION;
   my $DONE;
@@ -60,6 +63,7 @@ while (my $fields = $CSV->getline( $DATA_IN ))
       $SORT = $fields->[1];
       $TITLE = $fields->[2];
        # if($TITLE=~m/(Raumj).*/){$TITLE="Raumjager"}
+      $TITLE_FILE=$TITLE;
       $AUTHOR = $fields->[3];
       $PERMISSION = $fields->[4];
       $DONE = $fields->[5];
@@ -81,6 +85,13 @@ while (my $fields = $CSV->getline( $DATA_IN ))
       $UPDATED = $fields->[24];
       $DESC = $fields->[25];
       $NOTES = $fields->[26];
+#######################################
+
+
+#############
+$TITLE_FILE =~ s/\?|\'|  |\:|\!//g;
+open(my $TITLE_OUT, '>:encoding(utf8)', "fanfic/$TITLE_FILE.txt") or die "Could not open $TITLE_FILE: $!\n";
+
 
 #############
 
@@ -113,7 +124,7 @@ if ($DONE =~ "N")
   {
     print $DATA_OUT "|$SHADE|$TITLE\n";
   }
-elsif ($DONE =~ "O")
+elsif ($DONE =~ "P")
   {
     print $DATA_OUT "|$SHADE|$TITLE\*\n";
   }
@@ -124,6 +135,7 @@ else
   }
 
 print $DATA_OUT "|$SHADE|$AUTHOR\n";
+print $TITLE_OUT "[[Category:Fanfic-$AUTHOR]]\n";
 #print "PERMISSION: $PERMISSION\n";
 #print "DONE: $DONE\n";
 #print $DATA_OUT "|[[$TITLE]]\n";
@@ -162,6 +174,9 @@ else
   print $DATA_OUT "|$SHADE|\n";
   }
   print $DATA_OUT "|$SHADE|$RATING\n";
+  print $TITLE_OUT "[[Category:Fanfic]]\n";
+  print $TITLE_OUT "[[Category:Fanfic-$RATING]]\n";
+  print $TITLE_OUT "$BM";
   #print $DATA_OUT "| $LANGUAGE\n";
   #print $DATA_OUT "| $STYLE\n";
   #print $DATA_OUT "| $CHAPTERS\n";
@@ -177,6 +192,7 @@ else
     $skip_1="";
     $SORT="";
     $TITLE="";
+    $TITLE_FILE="";
     $AUTHOR="";
     $PERMISSION="";
     $DONE="";
@@ -229,7 +245,8 @@ sub BOX_OUTPUT
   sub SETUP
     {
       print $DATA_OUT "See Also [[:Category:Fanfic]]\n\n";
-      print $DATA_OUT "'''''Note:''' This page is under construction and there are parts missing from the list.''\n\n";
+      print $DATA_OUT "'''''Note:''' This page is under construction and there are parts missing from the list.''<br>";
+      print $DATA_OUT "'''''Note:''' Titles with * have been cataloged and the stories are offsite''\n\n";
       print $DATA_OUT "{| class=\"wikitable sortable\" style=\"margin: 1ex auto 1ex auto\"\n";
       print $DATA_OUT "! Sort\n";
       print $DATA_OUT "! Title\n";
