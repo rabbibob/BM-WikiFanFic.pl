@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Version 5
+# Version 6
 use strict;
 use warnings;
 no warnings 'uninitialized';
@@ -122,11 +122,11 @@ else
 # Y - done
 if ($DONE =~ "N")
   {
-    print $DATA_OUT "|$SHADE|$TITLE\n";
+    print $DATA_OUT "|$SHADE|<i>$TITLE</i>\n";
   }
 elsif ($DONE =~ "P")
   {
-    print $DATA_OUT "|$SHADE|$TITLE\*\n";
+    print $DATA_OUT "|$SHADE|$TITLE\n";
   }
 else
   {
@@ -182,7 +182,8 @@ else
   #print $DATA_OUT "| $CHAPTERS\n";
   print $DATA_OUT "|$SHADE|$LENGTH\n";
   print $DATA_OUT "|$SHADE|$PUBLISHED\n";
-  #print "UPDATED: $UPDATED\n";
+  print $DATA_OUT "|$SHADE|$DONE\n";
+   #print "UPDATED: $UPDATED\n";
   #print "DESC: $DESC\n";
   #print "NOTES: $NOTES\n";
   print $DATA_OUT "|-\n";
@@ -245,8 +246,9 @@ sub BOX_OUTPUT
   sub SETUP
     {
       print $DATA_OUT "See Also [[:Category:Fanfic]]\n\n";
-      print $DATA_OUT "'''''Note:''' This page is under construction and there are parts missing from the list.''<br>";
-      print $DATA_OUT "'''''Note:''' Titles with * have been cataloged and the stories are offsite''\n\n";
+      print $DATA_OUT "'''''Note:''' This page is under construction and there are parts missing from the list.''<br>\n";
+      print $DATA_OUT "'''''Note:''' Titles in italics have not been cataloged and the stories are offsite<br>''\n";
+      print $DATA_OUT "'''''Note:''' Titles without links have been cataloged and the stories are offsite''\n\n";
       print $DATA_OUT "{| class=\"wikitable sortable\" style=\"margin: 1ex auto 1ex auto\"\n";
       print $DATA_OUT "! Sort\n";
       print $DATA_OUT "! Title\n";
@@ -261,6 +263,7 @@ sub BOX_OUTPUT
       #print $DATA_OUT "! Chapters\n";
       print $DATA_OUT "! Length\n";
       print $DATA_OUT "! Published\n";
+      print $DATA_OUT "! Status\n";
       print $DATA_OUT "|-\n";
       }
 
