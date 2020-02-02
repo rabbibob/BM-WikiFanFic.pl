@@ -106,9 +106,16 @@ else
 
   print $DATA_OUT "|$SHADE|$SORT\n";
 
+# N - not done
+# O - offsite only, but categorized
+# Y - done
 if ($DONE =~ "N")
   {
     print $DATA_OUT "|$SHADE|$TITLE\n";
+  }
+elsif ($DONE =~ "O")
+  {
+    print $DATA_OUT "|$SHADE|$TITLE\*\n";
   }
 else
   {
